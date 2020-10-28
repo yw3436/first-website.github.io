@@ -1,0 +1,42 @@
+---
+title: "My awesome website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# This is Jeff's awesome website
+
+what if I add some text here...?
+
+![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
+
+
+## here is a subsection
+
+and here is some text.
+
+```{r}
+rnorm(10)
+```
+
+## Links to other websites
+
+let's likn to useful tools for ds
+
+* [Google](http://www.google.com)
+* [P8105](http://p8105.com)
+
+## Local image
+
+![](image/123.jpg)
+
+## Link to page within the site
+
+[About me](about_me.html)
+
+
+
+
+
