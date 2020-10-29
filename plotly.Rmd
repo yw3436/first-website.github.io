@@ -1,0 +1,75 @@
+---
+title: "Plotly example"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# examples for plotly
+
+we are gonna look at NYC Aribnb data.
+
+```{r}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+```
+
+
+```{r}
+data("nyc_airbnb")
+
+nyc_airbnb = 
+  nyc_airbnb %>% 
+  mutate(rating = review_scores_location / 2) %>% 
+  select(neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) %>% 
+  filter(
+    neighbourhood_group == "Manhattan",
+    price %in% 100:500,
+    room_type == "Entire home/apt"
+  ) %>% 
+  drop_na(rating)
+```
+
+
+# plotly plot
+```{r}
+nyc_airbnb %>% 
+  mutate(text_label = str_c("price: $", price, "\nrating:", rating)) %>% 
+  plot_ly(x = ~lat, y = ~long, text = ~text_label, color = ~price, alpha = .5, type = "scatter", mode = "markers")
+#use type to define plot
+```
+
+## Boxplot
+```{r}
+nyc_airbnb %>% 
+  mutate(neighbourhood = fct_reorder(neighbourhood, price)) %>% 
+  plot_ly(y = ~price, x = ~neighbourhood, color = ~neighbourhood,
+          type = "box", colors = "viridis")
+```
+
+
+## bar plot
+```{r}
+nyc_airbnb %>% 
+  count(neighbourhood) %>% 
+  mutate(neighbourhood = fct_reorder(neighbourhood, n)) %>% 
+  plot_ly(x = ~neighbourhood, y = ~n, type = "bar", colors = "vidiris")
+#plotly.com is a useful website for plotly.
+```
+
+## ggplotly
+
+```{r}
+ggplot_scatter = nyc_airbnb %>% 
+  ggplot(aes(x = lat, y = long, color = price)) +
+  geom_point()
+
+ggplotly(ggplot_scatter)
+
+# do a ggplot that has plotly function
+```
+
+
+

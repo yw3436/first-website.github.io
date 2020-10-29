@@ -30,6 +30,8 @@ let's likn to useful tools for ds
 
 ## Local image
 
+<img src="image/123.jpg" style="width:75%">
+
 ![](image/123.jpg)
 
 ## Link to page within the site
